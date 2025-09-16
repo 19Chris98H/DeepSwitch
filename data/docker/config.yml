@@ -1,0 +1,12 @@
+
+coordinates:
+    x_min : 4700
+    x_max : 5700
+    y_min : 2300
+    y_max : 3300
+
+variables:
+    - salt
+    - theta
+    - vorticity
+

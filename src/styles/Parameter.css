@@ -1,0 +1,182 @@
+.slider-container {
+    width: 90%;
+    max-width: 400px;
+    margin: 20px auto;
+    font-family: 'Poppins', sans-serif;
+    padding-top: 20px;
+}
+
+.slider-label {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.slider-value {
+    margin-top: 10px;
+    font-size: 16px;
+    color: #333;
+}
+
+.slider-container .noUi-horizontal .noUi-tooltip {
+    bottom:-30px
+}
+
+.advanced-button-container {
+    margin-top: 30px;
+    padding-bottom: 2%;
+}
+
+button.collapsible {
+    width: 90%;
+    background: #ffffff;
+    color: #000000;
+    margin-left: 5%;
+    padding: 0;
+    text-align: left;
+}
+
+button.collapsible:hover {
+    background: #ffffff;
+    color: #000000;
+}
+
+.advanced-settings-container {
+    background: #eeeeee;
+    margin-top: 0;
+}
+
+.min-max-container {
+    display: flex;
+}
+
+.min-max-container input {
+    width: 43%;
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
+.min-max-container input#color-min {
+    margin-right: 2%;
+}
+
+.min-max-container input#color-max {
+    margin-left: 0;
+}
+
+.min-max-label-container {
+    display: flex;
+}
+
+.min-max-label-container label {
+    width: 43%;
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
+.min-max-label-container label#color-min-label {
+    margin-right: 2%;
+}
+
+.min-max-label-container label#color-max-label {
+    margin-left: 0;
+}
+
+.advanced-settings-container .button-container button {
+    width: 50%;
+    margin-bottom: 5%;
+}
+
+#autofill-label {
+    margin-left: 5%;
+    width: 90%;
+}
+
+.autofill-container {
+    display: flex;
+}
+
+#autofill-percentage {
+    margin-left: 5%;
+    margin-right: 2%;
+    width: 43%;
+}
+
+#autofill-button {
+    margin-left: 0;
+    margin-right: 5%;
+    width: 43%;
+    height: 25px;
+    padding-top: 3px;
+}
+
+#attribute-section .dropdown-container {
+    position: relative;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#layer-section .dropdown-container {
+    display: flex;
+    width: 90%;
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
+.colormap-legend {
+    margin-top: 10px;
+    height: 20px;
+    background: #fff;
+    border: 1px solid #ccc;
+    position: relative;
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#colormap-canvas {
+    width: 100%; /* Ensures the canvas scales with the parent div */
+    height: 100%;
+}
+
+.colormap-markers {
+    position: relative;
+    width: 100%;
+    height: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-top: 5px;
+}
+
+.marker {
+    width: 2px;
+    height: 10px;
+    background-color: black;
+    position: absolute;
+}
+
+.color-label {
+    border-radius: 15%;
+    position: absolute;
+    font-size: 12px;
+    text-align: center;
+    top: 12px;
+    transform: translateX(-50%);
+    white-space: nowrap;
+}
+
+.load-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    right: 10%;
+    height: 20px;
+    width: 20px;
+    background-color: #1A66FF;
+}
+
+
+

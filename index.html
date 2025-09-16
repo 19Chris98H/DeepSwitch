@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DeepSwitch</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nouislider@15.8.1/dist/nouislider.min.css">
+    <link rel="stylesheet" href="src/styles/Layout.css">
+    <link rel="stylesheet" href="src/styles/Toggle.css">
+    <link rel="stylesheet" href="src/styles/PointSlider.css">
+    <link rel="stylesheet" href="src/styles/Parameter.css">
+    <link rel="stylesheet" href="src/styles/ColorPicker.css">
+    <link rel="stylesheet" href="src/styles/Cache.css">
+    <link href="https://fonts.cdnfonts.com/css/poppins" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="./LandingPage/assets/favicon.ico">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
+    <script>
+        $(function () {
+            $('#load-colormap-btn').tooltip({
+                content: `You can upload new color maps here, for example those found at https://sciviscolor.org/colormaps/`,
+                track: true
+            });
+        });
+    </script>
+    <style>
+        .ui-tooltip {
+            white-space: pre-wrap;
+            max-width: 400px;
+        }
+    </style>
+</head>
+<div id="cache-info-popover" popover="auto">
+    <button type="button" id="cache-info-close-button"></button>
+    <h2 style="text-align: center;">Cache Information</h2>
+    <div id="cache-info-attribute-container">
+        <label for="cache-info-attribute-dropdown">Attribute:</label>
+        <select id="cache-info-attribute-dropdown">
+            <option value="c">Current</option>
+            <option value="0">Temperature</option>
+            <option value="1">Salt</option>
+            <option value="2">Vorticity</option>
+            <option value="uv">UV</option>
+        </select>
+    </div>
+    <div id="cache-info-canvas-container">
+        <div id="cache-y-label-top" class="cache-label">
+            yt
+            <div class="cache-marker horizontal"></div>
+        </div>
+        <div id="cache-y-label-bottom" class="cache-label">
+            yb
+            <div class="cache-marker horizontal"></div>
+        </div>
+        <div id="cache-x-label-left" class="cache-label">
+            xl
+            <div class="cache-marker"></div>
+        </div>
+        <div id="cache-x-label-right" class="cache-label">
+            xr
+            <div class="cache-marker"></div>
+        </div>
+        <canvas id="cache-info-canvas"></canvas>
+        <div id="cache-hover-text">&nbsp;</div>
+        <div id="cache-info-controls">
+            <button type="button" id="cache-info-reload-button">Manual Reload</button>
+        </div>
+        <div id="cache-legend">
+            <label class="legend-title">Legend</label><br>
+            <div class="legend-divider"></div><br>
+            <span class="legend-color" id="not-cached-color"></span><label class="legend-label">Not Cached</label><br>
+            <span class="legend-color" id="cached-color"></span><label class="legend-label">Cached</label><br>
+            <span class="legend-color" id="working-color"></span><label class="legend-label">Being Cached</label><br>
+            <span class="legend-color" id="queued-color"></span><label class="legend-label">Queued</label><br>
+            <div class="legend-divider"></div><br>
+            <span class="legend-color" id="plane-color"></span><label class="legend-label">Plane</label><br>
+            <span class="legend-color" id="block-color"></span><label class="legend-label">Current Block</label><br>
+        </div>
+    </div>
+</div>
+<body style="grid-template-columns: 15fr 85fr 0;">
+<div class="left">
+    <div class="scalable">
+        <div id="space-label" class="time-label">Depth</div>
+        <div class="rangeline-container" style="position: relative; padding-right: 50px;">
+            <div id="middle-label1" class="middle-label1">depth (m)</div>
+            <div id="rangeline" class="rangeline"></div>
+        </div>
+    </div>
+</div>
+<div class="threejs" id="threejs-container">
+    <div id="parameterHideToggle-button" class="parameterHideToggle-button">◀</div>
+    <div class="saved-color-picker-container" id="saved-color-picker-container">
+        <canvas id="saved-color-picker-canvas"></canvas>
+        <div id="saved-color-picker-label"></div>
+    </div>
+    <div class="color-picker-container" id="color-picker-container">
+        <canvas id="color-picker-canvas"></canvas>
+        <div id="color-picker-label"></div>
+    </div>
+    <div class="preload-label-container">
+        <span class="preload-label" id="preload-label"></span>
+    </div>
+    <div class="cam-toggle-container">
+        <span class="cam-label" id="cam-label">Click for Top-Down Camera</span>
+        <div class="button-toggle" id="cam-toggle"></div>
+    </div>
+    <div class="toggle-container">
+        <span class="toggle-label">Time</span>
+        <div class="toggle-switch" id="toggle-switch">
+            <div class="toggle-marker"></div>
+        </div>
+        <span class="toggle-label">Depth</span>
+    </div>
+</div>
+<div class="right" style="display: none">
+    <div class="sub-section" id="attribute-section">
+        <h3>Attribute</h3>
+        <div class="dropdown-container">
+            <select id="dropdown-attribute">
+                <option value="0">Temperature</option>
+                <option value="1">Salt</option>
+                <option value="2">Vorticity</option>
+            </select>
+        </div>
+    </div>
+    <div class="sub-section" id="layer-section">
+        <h3>Layer</h3>
+        <div class="toggle-container-param">
+            <span class="toggle-label-param">LIC ON</span>
+            <div class="toggle-switch" id="toggle-LIC">
+                <div class="toggle-marker"></div>
+            </div>
+            <span class="toggle-label-param">LIC OFF</span>
+        </div>
+        <div class="toggle-container-param">
+            <span class="toggle-label-param">Local</span>
+            <div class="toggle-switch" id="toggle-extrema">
+                <div class="toggle-marker"></div>
+            </div>
+            <span class="toggle-label-param" id="global-label">Global</span>
+        </div>
+        <div class="dropdown-container">
+            <select id="dropdown">
+                <option value="0">Con_Viridis</option>
+                <option value="1">Con_Cold-Warm</option>
+                <option value="2">Con_Divergent1</option>
+                <option value="3">Con_Divergent2</option>
+                <option value="4">Con_Kinetic-Energy</option>
+                <option value="5">Con_Green-Brown</option>
+                <option value="6">Con_Blue-Green</option>
+                <option value="7">5Dis_Viridis</option>
+                <option value="8">5Dis_Cold-Warm</option>
+                <option value="9">5Dis_Autumn</option>
+                <option value="10">10Dis_Viridis</option>
+                <option value="11">10Dis_Cold-Warm</option>
+            </select>
+            <button id="load-colormap-btn" class="load-button"
+                    title="<ColorMaps>
+                <ColorMap name=&;MyColormap&;>
+                  <Point x=&;0.0&; r=&;1&; g=&;0&; b=&;0&; o=&;1&; />
+                  <Point x=&;1.0&; r=&;0&; g=&;0&; b=&;1&; o=&;1&; />
+                </ColorMap>
+                </ColorMaps>">+</button>
+            <input type="file" id="colormap-file-input" accept=".xml" style="display: none;" />
+        </div>
+        <div id="colormap-legend" class="colormap-legend">
+            <canvas id="colormap-canvas" height="20"></canvas>
+            <div id="colormap-markers" class="colormap-markers">
+                <div class="marker" id="marker-left"></div>
+                <div class="marker" id="marker-middle"></div>
+                <div class="marker" id="marker-right"></div>
+                <div class="color-label" id="label-left">0</div>
+                <div class="color-label" id="label-middle">0.5</div>
+                <div class="color-label" id="label-right">1</div>
+            </div>
+        </div>
+        <div class="slider-container">
+            <label for="opacity-slider">Opacity:</label>
+            <div id="opacity-slider"></div>
+        </div>
+        <div class="advanced-button-container" id="advanced-button-container">
+            <button type="button" class="collapsible" id="advanced-settings-button">▶ Advanced Settings</button>
+        </div>
+        <div class="advanced-settings-container" id="advanced-settings-container" style="display: none">
+            <div class="min-max-label-container">
+                <label for="color-min" id="color-min-label">Color Scale Min:</label>
+                <label for="color-max" id="color-max-label">Color Scale Max:</label>
+            </div>
+            <div class="min-max-container">
+                <input id="color-min" class="input-field-l" type="number" value="0">
+                <input id="color-max" class="input-field-l" type="number" value="1">
+            </div>
+            <div class="button-container">
+                <button id="set-button" class="play-button">Set Min/Max</button>
+                <button id="reset-button" class="play-button">Reset Min/Max</button>
+            </div>
+            <div class="autofill-label-container">
+                <label for="autofill-percentage" id="autofill-label">Autofill Min/Max with Percentage:</label>
+            </div>
+            <div class="autofill-container">
+                <input id="autofill-percentage" class="input-field-l" type="number" value="5">
+                <button id="autofill-button" class="play-button">Autofill Min/Max</button>
+            </div>
+        </div>
+    </div>
+    <div class="sub-section" id="iso-surface-section">
+        <h3>Iso-Surface</h3>
+
+        <div class="input-container">
+            <div>
+                <label id="isovalue-label" for="isovalue">Isovalue:</label>
+                <input id="isovalue" class="input-field-l" type="number" placeholder="Enter isovalue ..." value="1">
+            </div>
+        </div>
+
+        <div class="button-container">
+            <button id="generateIsoSurface-button" class="play-button">Generate</button>
+            <button id="deleteIsoSurface-button" class="play-button">Delete All</button>
+        </div>
+
+        <div class="list-container">
+            <h5 style="margin-top: 0; margin-bottom: 10px">Iso-Surfaces:</h5>
+            <ul class="iso-list" id="iso-list"></ul>
+        </div>
+    </div>
+    <div class="sub-section" id="cache-section" style="display: none">
+        <button id="hide-button" class="play-button"></button>
+        <h3>Cache</h3>
+        <input type="checkbox" id="auto-cache-checkbox" class="single-checkbox" checked="checked">
+        <label for="auto-cache-checkbox">Automatically cache</label><br>
+        <input type="checkbox" id="loading-label-checkbox" class="single-checkbox" checked="checked">
+        <label for="loading-label-checkbox">Show label when loading</label><br>
+        <input type="checkbox" id="concurrent-loading-checkbox" class="single-checkbox">
+        <label for="concurrent-loading-checkbox">Allow concurrent requests (attribute only)</label><br>
+        <div id="concurrent-input">
+        <label for="concurrent-amount" id="concurrent-amount-label">Maximum concurrent requests:</label><br>
+        <input id="concurrent-amount" class="input-field-l" type="number" placeholder="" value="5">
+        </div>
+        <div class="cache-button-container">
+            <button id="cache-stack-button" class="play-button">Cache Block</button>
+            <button id="cache-slices-button" class="play-button">Cache Slices</button>
+            <button id="cache-attribute-button" class="play-button">Cache Attribute</button>
+            <button id="cache-info-show-button" class="play-button">Show Cache Info</button>
+        </div>
+    </div>
+</div>
+<div class="bottom">
+    <div class="scalable">
+        <div id="time-label" class="time-label">Time</div>
+        <div class="timeline-container" style="position: relative;">
+            <div id="middle-label2" class="middle-label2">depth (m)</div>
+            <div id="timeline" class="timeline"></div>
+        </div>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script src="https://cdn.jsdelivr.net/npm/nouislider@15.8.1/dist/nouislider.min.js"></script>
+<script type="module" src="src/main.js"></script>
+</body>
+</html>

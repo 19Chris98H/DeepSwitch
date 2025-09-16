@@ -1,0 +1,240 @@
+body {
+    margin: 0;
+    display: grid;
+    grid-template-columns: 15fr 65fr 20fr;
+    grid-template-rows: 4fr 1fr;
+    height: 100vh;
+    font-family: 'Poppins', sans-serif;
+    overflow: hidden;
+}
+
+.left {
+    grid-column: 1 / 2;
+    grid-row: 1 / 2;
+    background: #f4f4f4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.threejs {
+    grid-column: 2 / 3;
+    grid-row: 1 / 2;
+    background: #CCCCCC;
+    position: relative;
+    display: flex;
+    transition: margin-right 0.3s ease;
+    min-width: 0;
+    min-height: 0;
+}
+
+.right {
+    scrollbar-gutter: stable;
+    grid-column: 3 / 4;
+    grid-row: 1 / 2;
+    background: #f4f4f4;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: normal;
+    position: relative;
+    padding: 10px 20px;
+    gap: 10px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.preload-label-container {
+    position: absolute;
+    text-align: center;
+    left: 0;
+    width: 100%;
+}
+
+.preload-label {
+    left: 50%;
+}
+
+/* Container für Input-Felder */
+.input-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 400px;
+    gap: 10px;
+}
+
+.input-container > div {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.right label {
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+.right input {
+    margin-bottom: 10px;
+    width: 87%;
+    max-width: none;
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
+
+/* Container für Buttons */
+.button-container {
+    display: flex;
+    width: 90%;
+    max-width: 400px;
+    margin-left: 5%;
+    margin-right: 5%;
+    gap: 10px;
+}
+
+#attribute-section button
+,#iso-surface-section button
+,#cache-section button
+{
+    width: 40%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-size: 14px;
+    color: white;
+    background-color: #1A66FF;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-align: center;
+}
+
+.disabled {
+    background-color: #6f6f6f !important;
+    cursor: not-allowed !important;
+}
+
+.parameterHideToggle-button {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 50px;
+    background-color: #1A66FF;
+    color: white;
+    text-align: center;
+    line-height: 50px;
+    cursor: pointer;
+    border-radius: 5px 0 0 5px;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
+}
+
+.bottom {
+    grid-column: 1 / 4;
+    grid-row: 2 / 3;
+    background: #e0e0e0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.sub-section {
+    width: 100%;
+    background: #ffffff;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.sub-section h3 {
+    margin-top: 0;
+    font-size: 18px;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#attribute-section select {
+    margin-bottom: 5px;
+    width: 90%;
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
+#layer-section select {
+    width: 100%;
+    margin: 0; /* entfernt Abstand zum Button */
+    flex: 1 1 auto;
+}
+
+#iso-surface-section button {
+    margin-bottom: 5px;
+    flex: 1;
+}
+
+#iso-surface-section label {
+    margin-bottom: 5px;
+    width: 90%;
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
+.list-container {
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-top: 10px;
+    width: 90%;
+}
+
+.list-container ul.iso-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.list-container ul.iso-list li {
+    width: 100%;
+    height: 20px;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+#iso-list .list-item {
+}
+
+#iso-list .list-button {
+    float: left;
+    width: 20px;
+    margin-left: 0;
+    margin-right: 10px;
+    background: url(../assets/img/iso_remove.png);
+}
+
+#iso-list .list-value {
+    float: left;
+    width: calc(50% - 15px);
+    margin: 0;
+}
+
+#iso-list .list-color {
+    float: left;
+    width: calc(50% - 15px);
+    height: 100%;
+    margin: 0;
+}
+
+.toggle-container-param {
+    margin-bottom: 10px;
+}
+
+.slider-container {
+    margin-bottom: 10px;
+}

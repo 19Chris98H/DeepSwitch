@@ -1,0 +1,193 @@
+#cache-section .single-checkbox {
+    width: 20px;
+    margin-right: 0;
+}
+
+.cache-button-container {
+    margin-left: 5%;
+    margin-right: 5%;
+    display: grid;
+    grid-template-columns: 48.5%;
+    column-gap: 3%;
+    row-gap: 5%;
+}
+
+.cache-button-container button {
+    width: 100%;
+}
+
+#cache-stack-button {
+    grid-row: 1;
+    grid-column: 1;
+    justify-self: left;
+}
+
+#cache-slices-button {
+    grid-row: 1;
+    grid-column: 2;
+    justify-self: right;
+}
+
+#cache-attribute-button {
+    grid-column: 1;
+    grid-row: 2;
+    justify-self: left;
+}
+
+#cache-info-show-button {
+    grid-column: 2;
+    grid-row: 2;
+    justify-self: right;
+}
+
+#concurrent-amount-label {
+    position: absolute;
+    left: 10%;
+}
+
+#cache-section #hide-button {
+    position: absolute;
+    right: 10%;
+    height: 20px;
+    width: 20px;
+    background: url(../assets/img/iso_remove.png);
+}
+
+#cache-info-popover {
+    top: 10%;
+    bottom: 30%;
+    left: 10%;
+    right: 10%;
+    height: 60%;
+    width: 80%;
+    align-items: center;
+}
+
+#cache-info-canvas-container {
+    position: relative;
+    margin: 10px auto auto;
+    width: 75%;
+    height: 60%;
+    align-items: center;
+}
+
+.cache-label {
+    position: absolute;
+}
+
+.cache-marker {
+    background: #000;
+    position: absolute;
+    top: -10px;
+    left: calc(50% - 1px);
+    height: 10px;
+    width: 2px;
+}
+
+.cache-marker.horizontal {
+    top: calc(50% - 1px);
+    left: unset;
+    right: -10px;
+    height: 2px;
+    width: 10px;
+}
+
+#cache-info-canvas {
+    padding-left: 0;
+    padding-right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
+
+#cache-info-attribute-container {
+    padding-left: 0;
+    padding-right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    width: fit-content;
+}
+
+#cache-hover-text {
+    padding-left: 0;
+    padding-right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    width: fit-content;
+    display: block;
+}
+
+#cache-info-controls {
+    position: relative;
+    top: 10px;
+    display: flex;
+    align-items: center;
+}
+
+button {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    min-width: fit-content;
+    font-size: 14px;
+    color: white;
+    background-color: #1A66FF;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-align: center;
+}
+
+#cache-info-reload-button {
+    margin: auto;
+    width: 15%;
+}
+
+#cache-info-close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    height: 20px;
+    width: 20px;
+    background: url(../assets/img/iso_remove.png);
+}
+
+#cache-legend {
+    position: relative;
+    top: 12px;
+    background: #ddd;
+    border-radius: 5%;
+    padding: 5px;
+    display: grid;
+    row-gap: 1px;
+    width: fit-content;
+}
+
+.legend-title {
+    grid-column: 1/3;
+    margin-bottom: -3px;
+}
+
+.legend-color {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border-radius: 15%;
+    grid-column: 1;
+    border: #444 1px solid;
+}
+
+.legend-label {
+    margin-left: 5px;
+    height: 20px;
+    width: fit-content;
+    grid-column: 2;
+}
+
+.legend-divider {
+    height: 0;
+    margin-top: 1px;
+    margin-bottom: 1px;
+    grid-column: 1/3;
+    border-bottom: 1px solid #888;
+}

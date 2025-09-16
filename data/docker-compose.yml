@@ -1,0 +1,12 @@
+services:
+  deepvis:
+    image: oliverkallenberg/deepvis-pipeline:latest
+    container_name: deepvis-pipeline
+    volumes:
+      - ./config.yml:/config.yml
+      - ./downloads/data:/data
+    working_dir: /usr/src/app
+    entrypoint: ["sh", "-c", "touch /data/metadata.json && python start.py"]
+    restart: "no"
+    stdin_open: true
+    tty: true
