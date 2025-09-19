@@ -171,7 +171,7 @@ export class DataManager extends THREE.EventDispatcher {
 
     async loadMetadata() {
         try {
-            const response = await fetch("./Data/downloads/data/metadata.json");
+            const response = await fetch("./data/downloads/data/metadata.json");
             if (!response.ok) {
                 throw new Error(`Failed to load metadata: ${response.status}`);
             }
@@ -442,7 +442,7 @@ export class DataManager extends THREE.EventDispatcher {
 
         const date = `${year}_${month}_${day}`;
         const heightIndex = DataUtils.LEVELS.indexOf(discreteHeight);
-        return `Data/downloads/data/${attribute}_${date}_${hour}_${heightIndex}.bin`;
+        return `data/downloads/data/${attribute}_${date}_${hour}_${heightIndex}.bin`;
     }
 
     async getDataLayer(attribute, timestamp, discreteHeight, { signal } = {}) {
